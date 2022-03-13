@@ -1,0 +1,19 @@
+{
+  "name": "dcss-tv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron --trace-warnings .",
+    "pack-app": "electron-packager . dcss-tv --asar"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^17.1.2"
+  },
+  "dependencies": {
+    "electron-packager": "^15.4.0"
+  }
+}
