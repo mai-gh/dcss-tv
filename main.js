@@ -56,7 +56,7 @@ const createWindow = () => {
 
             if (idleTime == 0 ) {
               const button = document.querySelectorAll('#' + row.id + ' .username')[0].firstChild
-              console.log('click', row)
+              //console.log('click', row)
               button.click()
               let newGameHTML = document.getElementById('game').innerHTML;
               let oldGameHTML;
@@ -72,6 +72,15 @@ const createWindow = () => {
                 //document.getElementById('game').style.pointer-events = 'none';
                 document.getElementById('overlay').style.display = "none";
                 await new Promise(resolve => setTimeout(resolve, 1000));
+
+
+                if (!document.getElementById('normal')) {
+                  // you are no longer wathing a game,
+                  // escape was probably pushed
+                  // and you are probably in the lobby
+                  console.log('Detected Spectator Out Of Game View!')
+                  break loopWalkRows;
+                }
 
                 oldGameHTML = newGameHTML;
                 newGameHTML = document.getElementById('game').innerHTML;
