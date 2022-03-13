@@ -10,10 +10,7 @@ DCSS-TV is an electron app
 to try it out: 
 
 ```
-git clone https://github.com/mai-gh/dcss-tv.git
-cd dcss-tv
-npm install
-npm start
+git clone https://github.com/mai-gh/dcss-tv.git && cd dcss-tv && npm install && npm start
 ```
 
 to package as an electron app:

@@ -9,6 +9,7 @@ const createWindow = () => {
     frame: false ,
     titleBarStyle: 'hidden',
     show: false,
+    fullscreen: true,
     webPreferences: {
       nativeWindowOpen: true,
     }
