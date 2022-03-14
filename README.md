@@ -2,6 +2,8 @@
 
 ## Dungeon Crawl Stone Soup Television
 
+this is mainly an exercise in DOM manipulation!
+
 
 The point of this project is to automate spectating games of the webtiles version of dungeon crawl stone soup. 
 
