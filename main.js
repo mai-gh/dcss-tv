@@ -1,6 +1,6 @@
 const { app, BrowserWindow, session } = require('electron')
 
-const maxIdleTimeout = 500
+const maxIdleTimeout = 45
 
 
 
