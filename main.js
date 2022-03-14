@@ -156,9 +156,9 @@ const createWindow = () => {
                 let exitGameMessage = document.getElementById('exit_game').innerText;
                 if (exitGameMessage != initialExitGameMessage) {
                   console.log('GAME MESSAGE NOT MATCH! (GAME ENDED)')
-                  //document.getElementById('exit_game').innerText = initialExitGameMessage;
                   await new Promise(resolve => setTimeout(resolve, 1000));
                   //console.log('probably need to push ok')
+                  document.getElementById('exit_game').innerText = initialExitGameMessage;
                   break loopWalkRows;
 
                 }
