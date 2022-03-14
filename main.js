@@ -1,5 +1,11 @@
 const { app, BrowserWindow, session } = require('electron')
 
+const maxIdleTimeout = 500
+
+
+
+
+
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -17,13 +23,43 @@ const createWindow = () => {
 
   //win.setMenu(null)
   win.loadURL('https://crawl.kelbi.org/')
-  //win.loadURL('http://127.0.0.1:8080')
+//  win.loadURL('http://127.0.0.1:8080')
   win.maximize()
   win.show()
   //win.openDevTools();
 
   win.webContents.once('dom-ready', () => {
     win.webContents.executeJavaScript(`
+      const msg = (str) => {
+        const textContainerNode = document.createElement("span");
+        textContainerNode.classList.add('fg5')
+        const textNode = document.createTextNode(str);
+        textContainerNode.appendChild(textNode);
+        const messageContainerNode = document.createElement("div");
+        messageContainerNode.classList.add('game_message')
+        messageContainerNode.appendChild(textContainerNode)
+        document.getElementById("messages").appendChild(messageContainerNode);
+      }
+
+      const chatMsg = (msg) => {
+        const senderText = document.createTextNode('LOG');
+        const senderContainer = document.createElement("span");
+        senderContainer.classList.add('chat_sender');
+        senderContainer.appendChild(senderText);
+
+        const messageText = document.createTextNode(msg);
+        const messageContainer = document.createElement("span");
+        messageContainer.classList.add('chat_msg');
+        messageContainer.appendChild(messageText);
+
+        const colon = document.createTextNode(': ');
+
+        document.getElementById("chat_history").appendChild(senderContainer);
+        document.getElementById("chat_history").appendChild(colon);
+        document.getElementById("chat_history").appendChild(messageContainer);
+        document.getElementById("chat_history").appendChild(document.createElement("br"));
+      }
+
       const controlFlow = async () => {
         while (true) {
           const initialExitGameMessage = document.getElementById('exit_game').innerText;;
@@ -58,15 +94,16 @@ const createWindow = () => {
               const button = document.querySelectorAll('#' + row.id + ' .username')[0].firstChild
               //console.log('click', row)
               button.click()
+
+              while (!document.getElementById('right_column')) {
+                //wait to be in game
+                await new Promise(resolve => setTimeout(resolve, 1000));
+              }
               let newGameHTML = document.getElementById('game').innerHTML;
               let oldGameHTML;
               let gameMatchCounter = 0;
 
-              while (!document.getElementById('normal')) {
-                //wait to be in game
-                await new Promise(resolve => setTimeout(resolve, 1000));
-              }
-              document.getElementById('chat_hide_button_span').click()
+              //document.getElementById('chat_hide_button_span').click()
 
               while (true) {
                 //document.getElementById('game').style.pointer-events = 'none';
@@ -87,15 +124,16 @@ const createWindow = () => {
 
                 if (newGameHTML === oldGameHTML) {
                   gameMatchCounter++
+                  //chatMsg(gameMatchCounter)
                 //  console.log('newGameHTML oldGameHTML MATCHED, COUNTER: ', gameMatchCounter)
                 } else {
                   gameMatchCounter = 0
                 //  console.log('newGameHTML oldGameHTML NOTMATCHED, COUNTER: ', gameMatchCounter, row.id)
                 }
 
-                if (gameMatchCounter >= 30) {
+                if (gameMatchCounter >= ${maxIdleTimeout}) {
                   // game went idle
-                  console.log('CHANGE CHANNEL (player idle out):', 'idle for: ', gameMatchCounter, ' >=30')
+                  console.log('CHANGE CHANNEL (player idle out):', 'idle for: ', gameMatchCounter, ' >=', ${maxIdleTimeout})
                   document.dispatchEvent(new KeyboardEvent("keydown", {keyCode: 27})) // send escape key
                   break loopWalkRows;
                 }
