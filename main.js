@@ -105,6 +105,12 @@ const createWindow = () => {
                   break loopWalkRows;
                 }
               }
+
+              // game should be happening
+              // force disable loading screen, sometimes get stuck
+              document.getElementById('loader').style.display = 'none';
+              document.getElementById('game').style.display = 'block';
+
               let newGameHTML = document.getElementById('game').innerHTML;
               let oldGameHTML;
               let gameMatchCounter = 0;
@@ -118,7 +124,7 @@ const createWindow = () => {
 
 
                 if (!document.getElementById('normal')) {
-                  // you are no longer wathing a game,
+                  // you are no longer watching a game,
                   // escape was probably pushed
                   // and you are probably in the lobby
                   console.log('Detected Spectator Out Of Game View!')
