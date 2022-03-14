@@ -5,6 +5,9 @@
 this is mainly an exercise in DOM manipulation!
 
 
+Explanation video: [https://www.youtube.com/watch?v=Z7u80nItFM8](https://www.youtube.com/watch?v=Z7u80nItFM8)
+
+
 The point of this project is to automate spectating games of the webtiles version of dungeon crawl stone soup. 
 
 DCSS-TV is an electron app
