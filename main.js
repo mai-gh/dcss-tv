@@ -1,7 +1,7 @@
 const { app, BrowserWindow, session } = require('electron')
 
-const maxIdleTimeout = 45
-
+const maxIdleTimeout = 45;
+const maxLoadingTimeout = 15;
 
 
 
@@ -95,9 +95,15 @@ const createWindow = () => {
               //console.log('click', row)
               button.click()
 
-              while (!document.getElementById('right_column')) {
+              let loadingCounter = 0;
+              while (!document.getElementById('stats_titleline')) {
                 //wait to be in game
                 await new Promise(resolve => setTimeout(resolve, 1000));
+                loadingCounter++
+                if (loadingCounter >= ${maxLoadingTimeout}) {
+                  // stuck on loading page
+                  break loopWalkRows;
+                }
               }
               let newGameHTML = document.getElementById('game').innerHTML;
               let oldGameHTML;
